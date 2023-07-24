@@ -1,0 +1,37 @@
+
+public class HasATest {
+
+	public static void main(String[] args) {
+		
+    Human humanObj=new Human();
+    humanObj.breathing();
+    humanObj.thinking();
+	}
+
+}
+
+class Heart{
+	void pumping() {
+		System.out.println("Heart is Pumping");
+	}
+}
+class Brain{
+	void analysing() {
+		System.out.println("Heart is analysing");
+	}
+}
+class Human{
+	private Heart myHeart=new Heart();
+	private Brain myBrain=new Brain();
+//	myHeart.pumping();
+	void breathing() {
+		System.out.println("Human is breathing");
+		myHeart.pumping();
+	}
+	
+	void thinking() {
+		System.out.println("Human is thinking");
+		myBrain.analysing();
+	}
+	
+}
