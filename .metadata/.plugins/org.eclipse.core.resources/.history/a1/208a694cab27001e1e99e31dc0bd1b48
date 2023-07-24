@@ -1,0 +1,45 @@
+
+public class ClassExtensionTest {
+
+	public static void main(String[] args) {
+//		Doctor x=new Doctor();
+		Surgeon x=new Surgeon();
+//		HeartSurgeon x=new HeartSurgeon();
+		if(x instanceof Doctor) {
+			System.out.println("It's doctors object");
+		}else {
+			System.out.println("It's not Doctors object");
+		}
+		
+		System.out.println("-------------------");
+		
+		if(x instanceof Surgeon) {
+			System.out.println("It's Surgeons object");
+		}else {
+			System.out.println("It's not Surgeons object");
+		}
+		
+        System.out.println("-------------------");
+		
+		if(x instanceof HeartSurgeon) {
+			System.out.println("It's HeartSurgeons object");
+		}else {
+			System.out.println("It's not HeartSurgeons object");
+		}
+
+	}
+
+}
+
+class Doctor{
+	
+	
+}
+
+class Surgeon extends Doctor{
+	
+}
+
+class HeartSurgeon extends Surgeon{
+	
+}

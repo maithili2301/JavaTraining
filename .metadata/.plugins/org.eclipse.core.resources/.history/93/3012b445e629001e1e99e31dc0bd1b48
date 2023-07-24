@@ -1,0 +1,104 @@
+
+public class SingleLevelTest1 {
+	public static void main(String[] args) {
+//		Person personObj1 = new Person('f',"Maithili",122);
+//		personObj1.showPerson();
+		
+//		Person personObj2=new Person(23);
+//		personObj2.showPerson();
+		
+		Student studentObj1=new Student('M',"Jack",23,"GECA","IT",24,90);
+		studentObj1.showStudent();
+//		System.out.println("----------------------");
+//		Student studentObj = new Student();
+//		System.out.println("-----------------------");
+//		Employee empObj = new Employee();
+//		System.out.println("----------");
+	}
+}
+
+class Person {
+	private char gender;
+	private String name;
+	private int age;
+
+//	Person() {
+//		System.out.println("Person() ctor....");
+//	}
+	Person(int age){
+		this('F',"NONAME",age);
+		
+	}
+	Person(char gender){
+		this(gender,"NONAME",100);
+	}
+	Person(String name){
+		this('F',name,100);
+	}
+	Person(char gender,String name,int age){
+		
+		if(gender=='M'||gender=='F'||gender=='T'||gender=='f'||gender=='m'||gender=='t') {
+			this.gender=gender;
+		}else {
+//			System.out.println("invalid gender");
+//			throw new RuntimeException("Invalid gender");
+			RuntimeException runtimeGenderEx=new RuntimeException("Invalid gender "+gender);
+			throw runtimeGenderEx;
+		}
+		if(name.matches("^[a-zA-Z]*$")) {
+			this.name=name;
+		}else {
+			RuntimeException runtimeNameEx=new RuntimeException("Invalid name "+name);
+			throw runtimeNameEx;
+		}
+		
+		if(age>=21&& age<=100) {
+			this.age=age;
+		}else {
+			RuntimeException runtimeAgeEx=new RuntimeException("Invalid age "+age);
+			throw runtimeAgeEx;
+		}
+		
+		this.name=name;
+	}
+	public void showPerson() {
+		System.out.println("---------PERSONAL--------");
+		System.out.println("GENDER: "+gender);
+		System.out.println("NAME: "+name);
+		System.out.println("AGE: "+age);
+	}
+}
+
+class Student extends Person {
+	private int rollNumber;
+	private String collegeName;
+	private String stream;
+	private float totalMarks;
+	Student(char gender,String name,int age,String collegeName,String stream,int rollNumber,float totalMarks) {
+//		super.showPerson();
+		super(gender,name,age);
+//		System.out.println("Student() ctor....");
+		this.collegeName=collegeName;
+		this.stream=stream;
+		this.rollNumber=rollNumber;
+		this.totalMarks=totalMarks;
+	}
+	public void showStudent() {
+		super.showPerson();
+		System.out.println("--------EDUCATIONAL--------");
+		System.out.println("COLLEGE NAME: "+collegeName);
+		System.out.println("STREAM+ "+stream);
+		System.out.println("ROLL NUMBER: "+rollNumber);
+		System.out.println("TOTAL MARKS: "+totalMarks);
+	}
+}
+
+class Employee extends Student {
+	int empId;
+	String companyName;
+	float salary;
+	Employee(char gender,String name,int age,String collegeName,String stream,int rollNumber,float totalMarks,int empId,String companyName,float salary) {
+		super(gender,name,age,collegeName,stream,rollNumber,totalMarks);
+		System.out.println("Employee() ctor....");
+	}
+}

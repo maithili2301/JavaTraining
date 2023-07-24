@@ -1,0 +1,33 @@
+
+public class AssignmentClass {
+  public static void main(String[] args) {
+	DetergentPowder detPow=new DetergentPowder();
+	detPow.setDetergentPowder(120, "wheel", 2022, 2024);
+	detPow.printDetergentPowder();
+	
+	DetergentPowder detPow2=new DetergentPowder();
+	detPow2.setDetergentPowder(130, "surf-exel", 2023, 2025);
+	detPow2.printDetergentPowder();
+}
+}
+
+class DetergentPowder{
+	private int pricePowder;
+	private String brandName;
+	private int manYear;
+	private int expiryYear;
+	
+	public void setDetergentPowder(int pricePowder,String brandName,int manYear,int expiryYear) {
+		this.pricePowder=pricePowder;
+		this.brandName=brandName;
+		this.manYear=manYear;
+		this.expiryYear=expiryYear;
+	}
+	 
+	public void printDetergentPowder() {
+		System.out.println("Brand of detergent powder is "+brandName);
+		System.out.println("Price of detergent powder is "+pricePowder);
+		System.out.println("Manufacturing year of detergent powder is "+manYear);
+		System.out.println("Expiry year of detergent powder is "+expiryYear);
+	}
+}

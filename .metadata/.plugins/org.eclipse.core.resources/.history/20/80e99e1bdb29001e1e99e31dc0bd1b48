@@ -1,0 +1,15 @@
+
+public class SingleLevelTest1 {
+   public static void main(String[] args) {
+	   
+   }
+}
+class Person{
+	
+}
+class Student extends Person{
+	
+}
+class Empployee extends Student{
+	
+}

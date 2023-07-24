@@ -1,0 +1,59 @@
+
+public class AssignmentClass {
+  public static void main(String[] args) {
+	DetergentPowder detPow=new DetergentPowder(120, "wheel", 2022, 2024);
+	detPow.printDetergentPowder();
+	
+	detPow.changeManYear(2023);
+	System.out.println("buying detergent");
+	detPow.getQuantity(6);
+	detPow.getExpriryYear();
+//	DetergentPowder detPow2=new DetergentPowder(130, "surf-exel", 2023, 2025);
+//	detPow2.printDetergentPowder();
+//	
+//	DetergentPowder detPow3=new DetergentPowder(100, "Rin", 2023, 2026);
+//	detPow3.printDetergentPowder();
+}
+}
+
+class DetergentPowder{
+	private int pricePowder;
+	private String brandName;
+	private int manYear;
+	private int expiryYear;
+	
+   DetergentPowder(int pricePowder,String brandName,int manYear,int expiryYear) {
+		this.pricePowder=pricePowder;
+		this.brandName=brandName;
+		this.manYear=manYear;
+		this.expiryYear=expiryYear;
+	}
+	 //without args withour return type
+	public void printDetergentPowder() {
+		System.out.println();
+		System.out.println("This information is for "+ brandName);
+		System.out.println();
+		System.out.println("Brand of detergent powder is "+brandName);
+		System.out.println("Price of detergent powder is "+pricePowder);
+		System.out.println("Manufacturing year of detergent powder is "+manYear);
+		System.out.println("Expiry year of detergent powder is "+expiryYear);
+	}
+	// with argument without return type
+	 void changeManYear(int newManYear) {
+		System.out.println("we are changing the manufacturing year of the powder");
+		manYear=newManYear;
+		System.out.println("New Manufacturing year of detergent powder is "+manYear);
+	}
+	//with arguments with return type
+	int getQuantity(int quantity) {
+		
+		return quantity*pricePowder;
+	}
+	
+	//without arguments with return type
+	int getExpriryYear() {
+		System.out.println("returning expiry year of "+brandName);
+		return expiryYear;
+	}
+	
+}
