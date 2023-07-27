@@ -5,15 +5,15 @@ public class WashingMachineTest {
 		WashingPowder washPowder = new WashingPowder(100, "Nirma", "Front Load", true, 10.0f);
 
 		System.out.println("wash powder : " + washPowder); // toString is invoked
-		Cloth cloth[] = new Cloth[3];
+		Cloth cloth[] = new Cloth[8];
 		cloth[0] = new Cloth("cotton", "white", 100, "shirt", true);
 		cloth[1] = new Cloth("satin", "pink", 300, "top", false);
-//		cloth[2] = new Cloth("cotton", "black", 400, "pant", true);
-//		cloth[3] = new Cloth("cotton", "black", 400, "pant", true);
-//		cloth[4] = new Cloth("cotton", "black", 400, "pant", true);
-//		cloth[5] = new Cloth("cotton", "black", 400, "pant", true);
-//		cloth[6] = new Cloth("cotton", "black", 400, "pant", true);
-//		cloth[7] = new Cloth("cotton", "black", 400, "pant", true);
+		cloth[2] = new Cloth("cotton", "black", 400, "pant", true);
+		cloth[3] = new Cloth("cotton", "black", 400, "pant", true);
+		cloth[4] = new Cloth("cotton", "black", 400, "pant", true);
+		cloth[5] = new Cloth("cotton", "black", 400, "pant", true);
+		cloth[6] = new Cloth("cotton", "black", 400, "pant", true);
+		cloth[7] = new Cloth("cotton", "black", 400, "pant", true);
 //		cloth[9] = new Cloth("cotton", "black", 400, "pant", true);
 //		cloth[10] = new Cloth("cotton", "black", 400, "pant", true);
 //		cloth[11] = new Cloth("cotton", "black", 400, "pant", true);
@@ -45,14 +45,20 @@ public class WashingMachineTest {
 		
 		
 		Water waterObj = new Water("Soft", 3, "warm");
-		Electricity electricityObj = new Electricity("AC",11, 3, 5, "Adani");
-//	Laundry laundryObj=new Laundry();
+		float valVoltage=(float) (Math.random());
+		int unitsUsed=(int) (Math.random());
+		
+		Electricity electricityObj = new Electricity("AC", 20, 54, 5, "Adani");
+//   	Laundry laundryObj=new Laundry();
 		try {
 			Laundry laundryObj = wahMachineObj.wash(washPowder, waterObj, electricityObj, cloth);
 			System.out.println(laundryObj.toString());
 		} catch (ClothsOverloaded e) {
 			// TODO Auto-generated catch block
 			System.out.println("Cloths Issue : " + e);
+		} catch (ElectricityNotFound e) {
+			// TODO Auto-generated catch block
+		System.out.println("Electricity Issue : "+e);
 		}
 
 //		System.out.println("Running main....");
@@ -85,15 +91,20 @@ class WashingMachine extends Machine { // isA
 			}
 		}
 	}
-	Laundry wash(WashingPowder washPowder, Water water, Electricity elect, Cloth cloth[]) throws ClothsOverloaded {
+	Laundry wash(WashingPowder washPowder, Water water, Electricity elect, Cloth cloth[]) throws ClothsOverloaded, ElectricityNotFound{
 
 		if (cloth.length > 15) {
 			ClothsOverloaded ex1 = new ClothsOverloaded("Oh No.... Cloths limit exceeded.........");
 			throw ex1;
 		}
+		
+		if(elect.getVoltage()<=0) {
+			ElectricityNotFound ex2=new ElectricityNotFound("Electricity Not available.....");
+			throw ex2;
+		}
 
 		
-		if(elect.getVoltage()>10) {
+		if(elect.getUnitUsed()>10) {
             ElectricityOverused eo1=new ElectricityOverused("Oh nooo..........Electricity Overused");
             throw eo1;
 
@@ -504,6 +515,19 @@ class ClothsOverloaded extends Exception // checked
 	ClothsOverloaded(String msg) {
 		super(msg);
 	}
+}
+
+class ElectricityNotFound extends Exception
+{
+    ElectricityNotFound(String msg) {
+		super(msg);
+	}
+}
+class ElectricityOverUsed extends RuntimeException{
+	ElectricityOverUsed(String msg){
+		super(msg);
+	}
+	
 }
 
 class ElectricityOverused extends RuntimeException // checked
