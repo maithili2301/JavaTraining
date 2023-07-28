@@ -1,9 +1,27 @@
+import java.util.Scanner;
 
 public class VehicleTest {
   public static void main(String[] args) {
 	
 }
 }
+
+
+class SelectCar{
+	void askAboutCar() {
+		System.out.println("Which car do you want ac or non ac ?");
+		Scanner sca=new Scanner(System.in);
+		sca.nextLine();
+		
+		
+	}
+	
+	Car gettingCar()
+}
+
+
+
+
 
 interface Vehicle{
 	void runOnRoad();
@@ -17,19 +35,71 @@ interface Payment{
 	void DoAfterPayment(int amt);
 }
 
-abstract class Car implements Vehicle{
+class doPayment implements Payment{
 
-	abstract void bookingCar();
+	@Override
+	public void DoAdvancedPayment(int amt) {
+		System.out.println("Do advanced Payment of "+(amt/3));
+		
+	}
+
+	@Override
+	public void DoAfterPayment(int amt) {
+		System.out.println("Do payment of remaining "+(amt-amt/3));
+		System.out.println("Payment Done....");
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
-abstract class AcCar extends Car{
-   
-	abstract void comfortable();
+
+
+
+
+
+
+
+ class Car implements Vehicle{
+
+	
+
+	@Override
+	public void runOnRoad() {
+		
+		System.out.println("Car running on road....");
+	}
+
+	@Override
+	public void canBook() {
+		System.out.println("Can book car....");
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void booked() {
+		System.out.println("Booked Car....");
+		// TODO Auto-generated method stub
+		
+	}
+	 void bookingCar() {
+		 System.out.println("Booking car....");
+		 
+	 }
+	
+}
+  class AcCar extends Car{
+    void comfortable() {
+    	System.out.println("AC cars are comfortable.....");
+    }
+	
 		
 }
-abstract class NonAcCar extends Car {
+ class NonAcCar extends Car {
       
-	abstract void quiteUncomfortable();
+	 void quiteUncomfortable() {
+		 System.out.println("Non Ac Cars are quite uncomfortable.....");
+	 }
 }
 
 class Ennova extends AcCar{
@@ -205,28 +275,31 @@ class SantroXing extends NonAcCar{
 
 	@Override
 	public void canBook() {
-		// TODO Auto-generated method stub
+		System.out.println("Can book Santro...");
 		
 	}
 
 	@Override
 	public void booked() {
+		System.out.println("Santro booked...");
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	void quiteUncomfortable() {
+		System.out.println("Santro is quite uncomfortable....");
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	void bookingCar() {
+		System.out.println("booking santro..rate..");
 		// TODO Auto-generated method stub
 		
 	}
-	void rateOfAltroz() {
-		System.out.println("Rate of Altroz is "+ rate);
+	void rateOfSantro() {
+		System.out.println("Rate of Santro is "+ rate);
 	}
 }
