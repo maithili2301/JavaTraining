@@ -44,10 +44,15 @@ class Parking extends JFrame implements ActionListener {
 
 	JFrame parkingFrame = new JFrame();
 	Label label1 = new Label("Enter Vehicle Type");
-	JTextField data = new JTextField(20);
+	final ButtonGroup groupForVehicle = new ButtonGroup();
+	JRadioButton v1=new JRadioButton("Four Wheeler");
+	JRadioButton v2=new JRadioButton("Two Wheeler");
+	JRadioButton v3=new JRadioButton("Bus");
+	JRadioButton v4=new JRadioButton("Tempo");
+//	JTextField data = new JTextField(20);
 
 	Label label2 = new Label("Enter Vehicle Number");
-	JTextField filename = new JTextField(20);
+	JTextField vehicleNo = new JTextField(20);
 
 	Label label3 = new Label("Charges Paid :");
 	final ButtonGroup group = new ButtonGroup();
@@ -86,15 +91,25 @@ class Parking extends JFrame implements ActionListener {
 		label1.setBounds(100, 100, 100, 100);
 
 		add(label1);
-		filename.setBounds(150, 100, 100, 100);
-		add(filename);
-		String str = filename.getText();
+		add(v1);
+		add(v2);
+		add(v3);
+		add(v4);
+		
+		groupForVehicle.add(v1);
+		groupForVehicle.add(v2);
+		groupForVehicle.add(v3);
+		groupForVehicle.add(v4);
+		
+		vehicleNo.setBounds(150, 100, 100, 100);
+		add(vehicleNo);
+		String str = vehicleNo.getText();
 		label2.setLocation(20, 80);
 		label2.setBounds(100, 150, 100, 100);
 		add(label2);
-		data.setBounds(150, 150, 100, 100);
-		add(data);
-		String str2 = data.getText();
+//		data.setBounds(150, 150, 100, 100);
+//		add(data);
+//		String str2 = data.getText();
 		label3.setBounds(100, 150, 100, 100);
 		add(label3);
 		add(rb1);
@@ -115,8 +130,8 @@ class Parking extends JFrame implements ActionListener {
 		add(clear);
 		//
 		clear.setLocation(100, 40);
-		filename.setToolTipText("Enter Vehicle Type...");
-		data.setToolTipText("Enter data for the file here");
+		vehicleNo.setToolTipText("Enter Vehicle Type...");
+//		data.setToolTipText("Enter data for the file here");
 		ok.setToolTipText("It saves the file");
 		clear.setToolTipText("It would clear the frame....");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -130,21 +145,21 @@ class Parking extends JFrame implements ActionListener {
 	private String vehicleNumber;
 	private boolean chargesPaid;
 
-	public String getVehicleType() {
-		return vehicleType;
-	}
-
-	public void setVehicleType() {
-		this.vehicleType = filename.getText();
-
-	}
+//	public String getVehicleType() {
+//		return vehicleType;
+//	}
+//
+//	public void setVehicleType() {
+//		this.vehicleType = filename.getText();
+//
+//	}
 
 	public String getVehicleNumber() {
 		return vehicleNumber;
 	}
 
 	public void setVehicleNumber() {
-		this.vehicleNumber = data.getText();
+		this.vehicleNumber = vehicleNo.getText();
 	}
 
 	public boolean isChargesPaid() {
@@ -163,39 +178,60 @@ class Parking extends JFrame implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e){
 
 		if (e.getSource() == ok) {
 			System.out.println("SAVING THE FILE...");
 			try {
 				DriverManager.registerDriver(new org.hsqldb.jdbc.JDBCDriver());
 				Connection conn = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/xdb");
-				String sqlQuery = "insert into PARKING values(?,?,?)";
+				String sqlQuery = "insert into PAARKING1 values(?,?,?,?)";
 				PreparedStatement pst = conn.prepareStatement(sqlQuery);
-				pst.setString(1, filename.getText());
-				pst.setString(2, data.getText());
-				String hint = data.getText();
+				if(v1.isSelected()) {
+					pst.setString(1,"Four Wheeler");
+					pst.setInt(3,50 );
+				}
+				else if(v2.isSelected()) {
+					pst.setString(1,"Two Wheeler");
+					pst.setInt(3,20 );
+				}
+				else if(v3.isSelected()) {
+					pst.setString(1,"Bus");
+					pst.setInt(3,100 );
+				}
+				else if(v4.isSelected()) {
+					pst.setString(1,"Tempo");
+					pst.setInt(3,130 );
+				}
+			
+				pst.setString(2, vehicleNo.getText());
+				
+				
+				
+				String hint = vehicleNo.getText();
 
 				if (rb1.isSelected()) {
 
 					ans = true;
-					pst.setBoolean(3, ans);
+					pst.setBoolean(4, ans);
 					pst.executeUpdate();
 					JOptionPane.showMessageDialog(this, "Data is SAVED");
 //					MyReceipt myReceiptObj=new MyReceipt();
 					MyReceipt.MyReceiptShow(hint);
-				} else if (rb2.isSelected()) {
+				} else if (rb2.isSelected()) {	
 					JOptionPane.showMessageDialog(this, "Please Pay Charges to Avail the Parking Facility.");
+					throw new ChargesNotPaid("Hey...You haven't Paid Charges Yet.");
+				
 				}
 
-			} catch (SQLException e1) {
+			} catch (SQLException | ChargesNotPaid e1) {
 				System.out.println("Error : " + e1.getMessage());
 				JOptionPane.showMessageDialog(this, e1.getMessage());
 			}
 
 		} else if (e.getSource() == clear) {
-			data.setText("");
-			filename.setText("");
+			vehicleNo.setText("");
+			groupForVehicle.clearSelection();
 
 		}
 
@@ -204,9 +240,16 @@ class Parking extends JFrame implements ActionListener {
 
 class MyReceipt extends JFrame implements ActionListener {
 	static JFrame receiptFrame = new JFrame();
+//	static Label label = new Label("Your Receipt No ");
+//		static JTextField data = new JTextField(20);
+		
 	static Label label1 = new Label("Your Vehicle : ");
 	
 	static JTextField data1 = new JTextField(20);
+	
+static Label label3 = new Label("Chaeges Paid : ");
+	
+	static JTextField data3 = new JTextField(20);
 	static JFrame parkingFrame = new JFrame();
 	static JTextField data2 = new JTextField(20);
 	static Label label2 = new Label("Enter Vehicle Type");
@@ -219,25 +262,38 @@ class MyReceipt extends JFrame implements ActionListener {
 			DriverManager.registerDriver(new org.hsqldb.jdbc.JDBCDriver());
 			Connection conn = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/xdb");
 			Statement statement = conn.createStatement();
-			String sqlQuery = "Select  * from Parking where VEHICLE_NO=" + hint;
-			ResultSet result1 = statement.executeQuery("Select * from PARKING where VEHICLE_NO='" + hint + "'");
+		
+			ResultSet result1 = statement.executeQuery("Select * from PAARKING1 where VEHICLE_NO='" + hint + "'");
 			while (result1.next()) {
+//				data.setText(result1.getInt(1));
+			
 				data1.setText(result1.getString(1));
 				data2.setText(result1.getString(2));
+				
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		label1.setBounds(100, 100, 100, 100);
+		
+		label1.setLocation(20,20);
+		label1.setBounds(100, 150, 100, 100);
 		receiptFrame.add(label1);
-		data1.setBounds(150, 100, 100, 100);
 		receiptFrame.add(data1);
-		label2.setBounds(100, 150, 100, 100);
+		data1.setEditable(false);
+//		label1.setLocation(20,20);
+		label2.setBounds(30, 100, 100, 100);
 		receiptFrame.add(label2);
-		data2.setBounds(150, 150, 100, 100);
+		data2.setBounds(100, 100, 100, 100);
 		receiptFrame.add(data2);
+		data1.setEditable(false);
+	
+		label3.setBounds(100, 150, 100, 100);
+		receiptFrame.add(label3);
+		data2.setBounds(100, 150, 100, 100);
+		receiptFrame.add(data3);
+		data2.setEditable(false);
      
 		receiptFrame.setVisible(true);
 	}
@@ -251,4 +307,13 @@ class MyReceipt extends JFrame implements ActionListener {
 
 	}
 
+}
+
+
+class ChargesNotPaid extends Exception
+{
+	ChargesNotPaid(String msg){
+		super(msg);
+		
+	}
 }
