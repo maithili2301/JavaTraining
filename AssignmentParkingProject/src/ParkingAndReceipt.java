@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 //import java.io.FileWriter;
@@ -247,17 +248,21 @@ class Parking extends JFrame implements ActionListener, Runnable {
 					pst.executeUpdate();
 					JOptionPane.showMessageDialog(this, "Data is SAVED");
 //					MyReceipt myReceiptObj=new MyReceipt();
-					MyReceipt.MyReceiptShow(hint);
+					
 				} else if (rb2.isSelected()) {
 					JOptionPane.showMessageDialog(this, "Please Pay Charges to Avail the Parking Facility.");
 					throw new ChargesNotPaid("Hey...You haven't Paid Charges Yet.");
 
 				}
 
-				
-				FileWriter out = new FileWriter("ParkingData.txt");
+//				String path="";
+				FileWriter out = new FileWriter("ParkingData.txt",true);
+//				FileOutputStream fileOutputStream=new FileOutputStream(path,true);
+//				System.out.println("File is ready to write...");
+								
 				if (v1.isSelected()) {
 					out.write("Four Wheeler");
+					
 				} else if (v2.isSelected()) {
 					out.write("Two Wheeler");
 				} else if (v3.isSelected()) {
@@ -265,10 +270,23 @@ class Parking extends JFrame implements ActionListener, Runnable {
 				} else if (v4.isSelected()) {
 					out.write("Tempo");
 				}
+				out.write("\t");
 				out.write(vehicleNo.getText());
+				if (v1.isSelected()) {
+					out.write("\t50");
+					
+				} else if (v2.isSelected()) {
+					out.write("\t20");
+				} else if (v3.isSelected()) {
+					out.write("\t100");
+				} else if (v4.isSelected()) {
+					out.write("\130");
+				}
 				out.write("\n");
 				
 				out.close();
+				MyReceipt.MyReceiptShow(hint);
+//				MyReceipt.MyReceiptShow(hint);
 			} catch (SQLException | ChargesNotPaid e1) {
 				System.out.println("Error : " + e1.getMessage());
 				JOptionPane.showMessageDialog(this, e1.getMessage());
