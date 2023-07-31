@@ -71,6 +71,7 @@ class Parking extends JFrame implements ActionListener, Runnable {
 	}
 
 	JFrame parkingFrame = new JFrame();
+	
 	Label label1 = new Label("Enter Vehicle Type");
 	final ButtonGroup groupForVehicle = new ButtonGroup();
 	JRadioButton v1 = new JRadioButton("Four Wheeler");
@@ -99,12 +100,13 @@ class Parking extends JFrame implements ActionListener, Runnable {
 	String s1;
 
 	void myParking() {
-		Label mainLabel = new Label();
+//		Label mainLabel = new Label();
 
 		parkingFrame.getContentPane().setBackground(new Color(154, 205, 50));
 		parkingFrame.setBounds(100, 100, 809, 464);
 		parkingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		parkingFrame.getContentPane().setLayout(null);
+		
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(85, 107, 47));
@@ -119,24 +121,26 @@ class Parking extends JFrame implements ActionListener, Runnable {
 //	 	
 		label1.setLocation(20, 50);
 		label1.setBounds(100, 100, 100, 100);
-		add(mainLabel);
+		add(label1);
+//		add(mainLabel);
 		add(label1);
 		add(v1);
 		add(v2);
 		add(v3);
-		add(v4);
+	add(v4);
 
 		groupForVehicle.add(v1);
 		groupForVehicle.add(v2);
 		groupForVehicle.add(v3);
 		groupForVehicle.add(v4);
 
-		vehicleNo.setBounds(150, 100, 100, 100);
-		add(vehicleNo);
-		String str = vehicleNo.getText();
 		label2.setLocation(20, 80);
 		label2.setBounds(100, 150, 100, 100);
 		add(label2);
+		vehicleNo.setBounds(150, 100, 100, 100);
+		add(vehicleNo);
+		String str = vehicleNo.getText();
+		
 //		data.setBounds(150, 150, 100, 100);
 //		add(data);
 //		String str2 = data.getText();
